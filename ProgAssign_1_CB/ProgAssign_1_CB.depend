@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1472699128 source:c:\users\carol\desktop\programs\ai_projects\progassign_1_cb\main.cpp
+	"Conveyor_Belt.h"
+	<string>
+	<iostream>
+
+1472700874 c:\users\carol\desktop\programs\ai_projects\progassign_1_cb\conveyor_belt.h
+	<iostream>
+	<fstream>
+	<deque>
+	<string>
+
+1472701067 source:c:\users\carol\desktop\programs\ai_projects\progassign_1_cb\conveyor_belt.cpp
+	"Conveyor_Belt.h"
+	<stdlib.h>
+
