@@ -21,8 +21,6 @@ class Conveyor_Belt{
 		void initialize(fstream &in_file);
 		void step_belt();
 		void pick_item();
-		void drop_item(int slot);
-		void fill_slot(int slot);
 		int get_item_quality(int index);
 };
 
