@@ -16,7 +16,7 @@ Conveyor_Belt::Conveyor_Belt(string in_file){
 	input_file.close();
 }
 
-Conveyor_Belt::~Conveyor_Belt() { };
+Conveyor_Belt::~Conveyor_Belt() { }
 
 void Conveyor_Belt::initialize(fstream &in_file){
 	int next_item;
