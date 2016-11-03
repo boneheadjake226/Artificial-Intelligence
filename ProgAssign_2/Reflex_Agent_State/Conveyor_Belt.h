@@ -1,6 +1,3 @@
-#ifndef CONVEYORBELT_H_INCLUDED
-#define CONVEYORBELT_H_INCLUDED
-
 #include <iostream>
 #include <fstream>
 #include <deque>
@@ -25,4 +22,3 @@ class Conveyor_Belt{
 };
 
 
-#endif // CONVEYORBELT_H_INCLUDED
