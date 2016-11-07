@@ -35,6 +35,7 @@ class MDP{
     MDP(std::string state_file_name, std::string trans_file_name);
     ~MDP();
     void toString();
+    bool is_terminal_state(State);
     
     std::map<int, State> states;
     float gamma;

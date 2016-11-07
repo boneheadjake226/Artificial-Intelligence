@@ -32,7 +32,6 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
     std::string curr_token;
     
     //DEBUG
-    
     cout << "Gathering Tokens from: " << next_state << endl;
     
     vector<string> tokens;
@@ -146,6 +145,9 @@ void MDP::toString(){
   }
 }
 
+bool MDP::is_terminal_state(State state){
+  return state.utility == 1.0 || state.utility == -1.0;
+}
 
 /*=============================================*/
 /*===============   Utility Functions   ================*/
