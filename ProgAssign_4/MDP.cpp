@@ -1,7 +1,3 @@
-/*
-* 
-*/
-
 #include "MDP.h"
 
 using namespace std;
@@ -13,6 +9,8 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
   std::fstream state_file;
   std::fstream trans_file;
   
+  gamma = GAMMA;
+  error_value = ERROR;
   
   //Parse state file and initialize states to vector positions
   state_file.open(state_file_name.c_str(), std::fstream::in);
@@ -44,6 +42,11 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
     
     int reward = toInt(tokens[3]);
     new_state.reward = reward;
+    if(reward == 1 || reward == -1){
+      new_state.utility = 1.0 * reward;
+    } else {
+      new_state.utility = 0.0;
+    }
     
     int state_id = toInt(tokens[0]);
     states[state_id] = new_state;
@@ -113,6 +116,9 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
 MDP::~MDP(){
 }
 
+/*
+  * Outputs a textual representation of an MDP object to the console
+*/
 void MDP::toString(){
   
   for(int i = 0; i < states.size(); i++){
@@ -140,6 +146,16 @@ void MDP::toString(){
   }
 }
 
+
+/*=============================================*/
+/*===============   Utility Functions   ================*/
+
+/*
+  * Converts a string to its integer form
+  * String s must be a valid integer format. Otherwise return value is
+      undefined
+  * returns integer form of string s.
+*/
 int toInt(string s){
   cout << "toInt in progress" << endl;
   
@@ -150,6 +166,12 @@ int toInt(string s){
   return result;
 }
 
+/*
+  * Converts a string to a floating point decimal form
+  * String s must be a valid decimal format. Otherwise return value is
+      undefined
+  * returns floating point decimal form of string s.
+*/
 float toFloat(string s){
   cout << "toInt in progress" << endl;
   
@@ -160,15 +182,6 @@ float toFloat(string s){
   return result;
 }
 
-int main(int argc, char *argv[]){
-  cout << "Before Init" << endl;
-  
-  MDP markov(argv[1], argv[2]);
-  
-  cout << "After Init" << endl;
-  
-  markov.toString();
-}
 
 
 

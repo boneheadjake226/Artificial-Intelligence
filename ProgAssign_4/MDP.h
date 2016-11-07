@@ -11,12 +11,16 @@
 #include <stdlib.h>
 #include <iostream>
 
+#define GAMMA 0.9
+#define ERROR 0.001
+
 // int = next_state_id, 
 // float = probability of getting to that state
 typedef std::pair<int, float> Next_State;
 
 struct State{
   int reward;
+  float utility;
   // char = action_id (S, G, B)
   // actions = all possible result states for taking action_id
   //            plus their probabilities
