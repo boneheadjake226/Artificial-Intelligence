@@ -25,6 +25,7 @@ int main(int argc, char *argv[]) {
   MDP mdp(argv[1], argv[2]);
   
   if(debug){
+    mdp.toString();
     cout << "MDP initialized with command line args" << endl;
   }
   
@@ -38,6 +39,8 @@ int main(int argc, char *argv[]) {
     cout << "Outputting Policy" << endl << endl;
   }
   
+  cout << "----------------------" << endl;
+  cout << "------ Results -------" << endl;
   for(int i = 1; i <= result.size(); i++){
     
     cout << "State " << i << ": Utility = " << result[i];
@@ -73,7 +76,17 @@ map<int, float> value_iteration(MDP mdp){
     }
     
     for(it_type state = mdp.states.begin(); state != mdp.states.end(); state++){
-      if(mdp.is_terminal_state(state->second)){ continue; }
+      // if(mdp.is_terminal_state(state->second)){
+        // state->second.utility = state->second.reward;
+        // continue; 
+      // }
+      
+      // if(debug){
+        // cout << "Utility[" << state->first << "] = "
+              // << state->second.reward << " + " << mdp.gamma
+              // << "(" << max_action_util(state->second, prev_utils).second 
+              // << ")" << endl;
+      // }
       
       state->second.utility = state->second.reward + 
               (mdp.gamma * max_action_util(state->second, prev_utils).second);
@@ -81,7 +94,15 @@ map<int, float> value_iteration(MDP mdp){
       if( (state->second.utility - prev_utils[state->first]) > greatest_util_diff){
         greatest_util_diff = (state->second.utility - prev_utils[state->first]);
       }
+      
+      if(debug){
+        cout << "Utility[" << state->first << "] = "
+              << state->second.reward << " + " << mdp.gamma
+              << "(" << max_action_util(state->second, prev_utils).second 
+              << ")" << endl;
+      }
     }
+    
     
     if(debug){
       cout << endl;
@@ -109,7 +130,7 @@ pair<char, float> max_action_util(State state, map<int, float> prev_utils){
     // Compute expected utility for current action
     for(int i = 0; i < action->second.size(); i++){
       float prob_nxt_state = action->second[i].second;
-      float nxt_state_id = action->second[i].first;
+      int nxt_state_id = action->second[i].first;
       action_util += prev_utils[nxt_state_id] * prob_nxt_state;
     }
     

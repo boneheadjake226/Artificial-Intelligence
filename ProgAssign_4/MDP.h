@@ -19,7 +19,7 @@
 typedef std::pair<int, float> Next_State;
 
 struct State{
-  int reward;
+  float reward;
   float utility;
   // char = action_id (S, G, B)
   // actions = all possible result states for taking action_id

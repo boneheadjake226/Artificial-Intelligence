@@ -39,15 +39,17 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
       tokens.push_back(curr_token);
     }
     
-    int reward = toInt(tokens[3]);
-    new_state.reward = reward;
-    if(reward == 1 || reward == -1){
-      new_state.utility = 1.0 * reward;
-    } else {
-      new_state.utility = 0.0;
+    new_state.reward = toFloat(tokens[3]);
+    new_state.utility = 0.0;
+    int state_id = toInt(tokens[0]);
+    
+    //Set actions for terminal states
+    if(new_state.reward == 1 || new_state.reward == -1){
+      vector<Next_State> next_states;
+      next_states.push_back(Next_State(state_id, 0.0));
+      new_state.actions['H'] = next_states;
     }
     
-    int state_id = toInt(tokens[0]);
     states[state_id] = new_state;
   }
   
@@ -125,28 +127,38 @@ void MDP::toString(){
     
     cout << "State[" << i+1 << "]:" << endl;
     cout << "\tReward: " << curr_state.reward << endl;
+    cout << "\tUtility: " << curr_state.utility << endl;
     cout << "\tTransitions:" << endl;
-    cout << "\t\tAction[S]: ";
-    std::vector<Next_State> next_states = curr_state.actions['S'];
-    for(int j = 0; j < next_states.size(); j++){
-      cout << next_states[j].first << " => " << next_states[j].second << ", ";
+    
+    if(is_terminal_state(curr_state)){
+      std::vector<Next_State> next_states = curr_state.actions['H'];
+      for(int j = 0; j < next_states.size(); j++){
+        cout << "\t\tAction[H]: ";
+        cout << next_states[j].first << " => " << next_states[j].second << endl;
+      }
+    } else{
+      cout << "\t\tAction[S]: ";
+      std::vector<Next_State> next_states = curr_state.actions['S'];
+      for(int j = 0; j < next_states.size(); j++){
+        cout << next_states[j].first << " => " << next_states[j].second << ", ";
+      }
+      cout << endl << "\t\tAction[G]: ";
+      next_states = curr_state.actions['G'];
+      for(int j = 0; j < next_states.size(); j++){
+        cout << next_states[j].first << " => " << next_states[j].second << ", ";
+      }
+      cout << endl << "\t\tAction[B]: ";
+      next_states = curr_state.actions['B'];
+      for(int j = 0; j < next_states.size(); j++){
+        cout << next_states[j].first << " => " << next_states[j].second << ", ";
+      }
+      cout << endl;
     }
-    cout << endl << "\t\tAction[G]: ";
-    next_states = curr_state.actions['G'];
-    for(int j = 0; j < next_states.size(); j++){
-      cout << next_states[j].first << " => " << next_states[j].second << ", ";
-    }
-    cout << endl << "\t\tAction[B]: ";
-    next_states = curr_state.actions['B'];
-    for(int j = 0; j < next_states.size(); j++){
-      cout << next_states[j].first << " => " << next_states[j].second << ", ";
-    }
-    cout << endl;
   }
 }
 
 bool MDP::is_terminal_state(State state){
-  return state.utility == 1.0 || state.utility == -1.0;
+  return (state.reward == 1 || state.reward == -1);
 }
 
 /*=============================================*/
