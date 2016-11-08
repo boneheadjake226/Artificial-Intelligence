@@ -31,9 +31,6 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
     
     std::string curr_token;
     
-    //DEBUG
-    cout << "Gathering Tokens from: " << next_state << endl;
-    
     vector<string> tokens;
     while(getline(ss, curr_token, ',')){
       tokens.push_back(curr_token);
@@ -76,18 +73,9 @@ MDP::MDP(std::string state_file_name, std::string trans_file_name){
     vector<string> tokens;
     std::string curr_token;
     
-    //DEBUG
-    cout << "Action: " << next_action << endl;
-    
-    //DEBUG
-    cout << "Trans: Gathering Tokens" << endl;
-    
     while(getline(ss, curr_token, ',')){
       tokens.push_back(curr_token);
     }
-    
-    //DEBUG
-    cout << "Trans: Tokens Gathered" << endl;
     
     int state_id = toInt(tokens[0]);
     
@@ -171,8 +159,6 @@ bool MDP::is_terminal_state(State state){
   * returns integer form of string s.
 */
 int toInt(string s){
-  cout << "toInt in progress" << endl;
-  
   std::istringstream istream(s);
   int result;
   istream >> result;
@@ -187,8 +173,6 @@ int toInt(string s){
   * returns floating point decimal form of string s.
 */
 float toFloat(string s){
-  cout << "toInt in progress" << endl;
-  
   std::istringstream istream(s);
   float result;
   istream >> result;

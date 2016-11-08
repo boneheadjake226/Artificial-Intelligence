@@ -9,12 +9,10 @@ using namespace std;
 
 map<int, float> value_iteration(MDP);
 pair<char, float> max_action_util(State, map<int, float>);
-string state_policy(State);
 
 int debug = 0;
 
 int main(int argc, char *argv[]) {
-  float greatest_util_diff;
   
   cout << "argc: " << argc << endl;
   if(argc == 4){
@@ -145,9 +143,6 @@ pair<char, float> max_action_util(State state, map<int, float> prev_utils){
   return max_action;
 }
 
-string state_policy(State state, map<int, State> states){
-  //TODO: use max action instead
-}
 
 
 
